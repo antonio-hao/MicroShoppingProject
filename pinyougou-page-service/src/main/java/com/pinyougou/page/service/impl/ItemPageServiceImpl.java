@@ -32,7 +32,7 @@ import freemarker.template.TemplateNotFoundException;
 
 @Service
 public class ItemPageServiceImpl implements ItemPageService {
-	@Value("${pagedir}")
+	@Value("${pagedir.address}")
 	private String pagedir;
 	
 	@Autowired

@@ -26,13 +26,11 @@
 	
 	<!-- 权限拦截器cas -->
   <context-param>
-  	<param-name>contextConfigLocation</param-name>
-  	<param-value>classpath:spring/spring-security.xml</param-value>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:spring/applicationContext*.xml</param-value>
   </context-param>
   <listener>
-  	<listener-class>
-  		org.springframework.web.context.ContextLoaderListener
-  	</listener-class>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
   <filter>

@@ -11,7 +11,7 @@ import util.FastDFSClient;
 @RestController
 public class UploadController {
 	
-	@Value("${FILE_SERVER_URL}")
+	@Value("${file.server.url}")
 	private String file_server_url;
 	
 	@RequestMapping("/upload")

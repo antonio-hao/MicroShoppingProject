@@ -6,9 +6,9 @@
 		http://www.springframework.org/schema/context   
 		http://www.springframework.org/schema/context/spring-context.xsd">
 	
-    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->  
+    <!-- 真正可以产生Connection的ConnectionFactory，由对应�? JMS服务厂商提供-->  
 	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  
-	    <property name="brokerURL" value="tcp://192.168.25.128:61616"/>  
+	    <property name="brokerURL" value="${activeMQ.address}"/>  
 	</bean>
 	   
     <!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->  
@@ -17,12 +17,12 @@
 	    <property name="targetConnectionFactory" ref="targetConnectionFactory"/>  
 	</bean>  
 	
-    <!--这个是队列目的地，点对点的  文本信息,导入索引库-->  
+    <!--这个是队列目的地，点对点�?  文本信息,导入索引�?-->  
 	<bean id="queueSolrDestination" class="org.apache.activemq.command.ActiveMQQueue">  
 	    <constructor-arg value="pinyougou_queue_solr"/>  
 	</bean>    
 	
-	<!-- 我的监听类，导入索引库-->
+	<!-- 我的监听类，导入索引�?-->
 	<bean id="itemSearchListener" class="com.pinyougou.search.service.impl.ItemSearchListener"></bean>
 	 
 	<!-- 消息监听容器，导入索引库 -->
@@ -32,12 +32,12 @@
 		<property name="messageListener" ref="itemSearchListener" />
 	</bean>
 	
-	 <!--这个是队列目的地，点对点的  文本信息,导入索引库-->  
+	 <!--这个是队列目的地，点对点�?  文本信息,导入索引�?-->  
 	<bean id="queueSolrDeleteDestination" class="org.apache.activemq.command.ActiveMQQueue">  
 	    <constructor-arg value="pinyougou_queue_solr_delete"/>  
 	</bean>    
 	
-	<!-- 我的监听类，导入索引库-->
+	<!-- 我的监听类，导入索引�?-->
 	<bean id="itemDeleteListener" class="com.pinyougou.search.service.impl.ItemDeleteListener"></bean>
 	 
 	<!-- 消息监听容器，导入索引库 -->

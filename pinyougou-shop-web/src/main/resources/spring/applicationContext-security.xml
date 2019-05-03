@@ -8,8 +8,7 @@
 						http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
-	<!-- 注册属性文件-->
-    <context:property-placeholder location="classpath:config/application.properties" />
+
 	<!-- 设置页面不登录也可以访问 -->
 	<http pattern="/*.html" security="none"></http>	
 	<http pattern="/css/**" security="none"></http>
@@ -43,7 +42,6 @@
 	
 		<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-shop-web" />
-	<dubbo:registry address="${ZOOKEEPER_URL}"/>
 	<dubbo:reference id="sellerService" interface="com.pinyougou.sellergoods.service.SellerService"></dubbo:reference>
 	<!-- 密码加密类 -->
 	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>

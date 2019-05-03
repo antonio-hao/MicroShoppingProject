@@ -10,12 +10,18 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 	
-	<!-- solr服务器地址 -->
-	<solr:solr-server id="solrServer" url="http://192.168.0.101:8888/solr" />
-
+	<!-- solr服务器地址-单机 -->
+	<solr:solr-server id="solrServer_dev" url="${solr.single.url}" />
+	
+    <!--solr服务器地址-集群  -->
+    <bean id="solrServer_pro" class="org.apache.solr.client.solrj.impl.CloudSolrServer">
+        <constructor-arg value="${solr.cloud.url}"/>
+         <property name="defaultCollection" value="collection1"></property>   
+       
+    </bean>
    
 	<!-- solr模板，使用solr模板可对索引库进行CRUD的操作 -->
-	<bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
-		<constructor-arg ref="solrServer" />
+	<bean id="solrTemplate"  class="org.springframework.data.solr.core.SolrTemplate">
+		<constructor-arg ref="solrServer_${env}" />
 	</bean>
 </beans>

@@ -44,7 +44,7 @@
 			<property name="maxTotal" value="${redis.cluster.maxTotal}" />  
 			<property name="maxWaitMillis" value="${redis.cluster.maxWaitMillis}"/> 
 	</bean>  
-	<bean id="jeidsConnectionFactory_pro" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  >  
+	<bean id="JedisConnectionFactory_pro" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  >  
 		<constructor-arg ref="redisClusterConfiguration" />  
 		<constructor-arg ref="jedisPoolConfig" />  
 	</bean>    
