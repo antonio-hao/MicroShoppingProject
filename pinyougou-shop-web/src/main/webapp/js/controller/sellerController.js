@@ -1,5 +1,5 @@
  //控制层 
-app.controller('sellerController' ,function($scope,$controller,sellerService){	
+app.controller('sellerController' ,function($scope,$controller,sellerService,loginService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -34,7 +34,7 @@ app.controller('sellerController' ,function($scope,$controller,sellerService){
 	//保存 
 	$scope.save=function(){				
 		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
+		if($scope.entity.sellerId!=null){//如果有ID
 			serviceObject=sellerService.update( $scope.entity ); //修改  
 		}else{
 			serviceObject=sellerService.add( $scope.entity  );//增加 
@@ -44,6 +44,36 @@ app.controller('sellerController' ,function($scope,$controller,sellerService){
 				if(response.success){
 					//重新查询 
 		        	$scope.reloadList();//重新加载
+		        	alert(response.message);
+				}else{
+					alert(response.message);
+				}
+			}		
+		);				
+	}
+	
+	$scope.passwordList={sellerId:"",oldPassword:"",newPassword1:"",newPassword2:""};
+	//修改密码 
+	$scope.updatePassword=function(){
+		if($scope.passwordList.newPassword1 == ""){
+			return alert("新密码不能为空！");
+		}
+		if($scope.passwordList.newPassword1!=$scope.passwordList.newPassword2){
+			return alert("新密码不一致！");
+		}
+		var serviceObject;//服务层对象  				
+		if($scope.entity.sellerId!=null){//如果有ID
+			$scope.passwordList.sellerId=$scope.entity.sellerId;
+			serviceObject=sellerService.updatePassword($scope.passwordList); //修改  
+		}else{
+			alert("用户不存在！");
+		}				
+		serviceObject.success(
+			function(response){				
+				if(response.success){
+					//重新查询 
+					$scope.passwordList={};
+		        	alert(response.message);		        	
 				}else{
 					alert(response.message);
 				}
@@ -90,5 +120,18 @@ app.controller('sellerController' ,function($scope,$controller,sellerService){
 			}			
 		);
 	}
+	
+
+	//获取当前用户名和商家信息
+	$scope.findLoginUser = function(){
+		loginService.loginName().success(
+				function(response){
+					$scope.loginName = response.loginName;
+					//获取商家信息
+					$scope.findOne($scope.loginName);
+				}
+		);		
+	}
+	
     
 });	

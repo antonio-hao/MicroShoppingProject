@@ -190,7 +190,7 @@ app.controller('goodsController' ,function($scope,$controller,$location   ,goods
 	
 	
 	//商品审核状态
-	$scope.status=['未审核','审核通过','审核未通过','已关闭'];
+	$scope.status=['未审核','审核通过','审核未通过','已关闭','待审核'];
 	//商品分类列表
 	$scope.itemCatList=[]
 	$scope.findItemCatList=function(){

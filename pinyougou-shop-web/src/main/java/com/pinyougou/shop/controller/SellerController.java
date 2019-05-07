@@ -1,4 +1,5 @@
 package com.pinyougou.shop.controller;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,7 +51,7 @@ public class SellerController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbSeller seller){
 		//密码加密
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String password = passwordEncoder.encode(seller.getPassword());//加密
 		seller.setPassword(password);
 		try {
@@ -76,7 +77,42 @@ public class SellerController {
 			e.printStackTrace();
 			return new Result(false, "修改失败");
 		}
-	}	
+	}
+	
+	/**
+	 * 更新用户密码
+	 * @param seller
+	 * @return
+	 */
+	@RequestMapping("/updatePassword")
+	public Result updatePassword(@RequestBody HashMap<String,String> passwordList){	    
+	  
+	    TbSeller seller = sellerService.findOne(passwordList.get("sellerId"));
+	  //密码加密
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String oldPassword = passwordList.get("oldPassword");
+	    String newPassword1 = passwordList.get("newPassword1");
+	    String newPassword2 = passwordList.get("newPassword2");
+	    String newPassword="";
+	   if(newPassword1.equals(newPassword2)){
+	       newPassword= passwordEncoder.encode(newPassword1);
+	   }else{
+	       return new Result(false, "新密码不一致");  
+	   }
+	   if(passwordEncoder.matches(oldPassword, seller.getPassword())){
+	       seller.setPassword(newPassword);
+	   }else{
+	       return new Result(false, "原密码错误，修改失败。");
+	   }
+
+       try {
+           sellerService.update(seller);
+           return new Result(true, "修改成功");
+       } catch (Exception e) {
+           e.printStackTrace();
+           return new Result(false, "修改失败");
+       }
+	}
 	
 	/**
 	 * 获取实体

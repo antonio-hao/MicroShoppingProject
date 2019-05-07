@@ -21,6 +21,11 @@ app.service('sellerService',function($http){
 	this.update=function(entity){
 		return  $http.post('../seller/update.do',entity );
 	}
+	//修改密码
+	this.updatePassword=function(passwordList){
+		return  $http.post('../seller/updatePassword.do',passwordList);
+	}
+	
 	//删除
 	this.dele=function(ids){
 		return $http.get('../seller/delete.do?ids='+ids);

@@ -238,7 +238,22 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 	}
 	
 	//商品审核状态
-	$scope.status=['未审核','审核通过','审核未通过','已关闭'];
+	$scope.status=['未审核','审核通过','审核未通过','已关闭','已提交审核'];
+	
+	//更新状态
+	$scope.updateStatus=function(status){
+		goodsService.updateStatus($scope.selectIds,status).success(
+			function(response){
+				if(response.success){
+					$scope.reloadList();//刷新页面
+					$scope.selectIds=[];
+				}else{
+					alert(response.message);
+				}
+			}
+		);
+	}
+	
 	//商品分类列表
 	$scope.itemCatList=[]
 	$scope.findItemCatList=function(){
