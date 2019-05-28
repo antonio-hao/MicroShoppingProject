@@ -69,9 +69,12 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 	
 	 
 	//批量删除 
-	$scope.dele=function(){			
+	$scope.dele=function(){
+		if($scope.selectIds.length<=0){
+			return alert("请选择!");
+		}
 		//获取选中的复选框			
-		goodsService.dele( $scope.selectIds ).success(
+		goodsService.dele( $scope.selectIds).success(
 			function(response){
 				if(response.success){
 					$scope.reloadList();//刷新列表
@@ -242,6 +245,9 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 	
 	//更新状态
 	$scope.updateStatus=function(status){
+		if($scope.selectIds.length<=0){
+			return alert("请选择!");
+		}		
 		goodsService.updateStatus($scope.selectIds,status).success(
 			function(response){
 				if(response.success){
@@ -285,7 +291,9 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 	$scope.marketable=['未上架','已上架'];
 	//商品上下架
 	$scope.updateMarketable=function(marketable){
-		
+		if($scope.selectIds.length<=0){
+			return alert("请选择!");
+		}
 		goodsService.updateMarketable($scope.selectIds,marketable).success(
 			function(response){
 				if(response.success){

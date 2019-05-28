@@ -31,8 +31,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findItemCatList()">
-  <!-- .box-body -->
-                
+  <!-- .box-body -->              
                     <div class="box-header with-border">
                         <h3 class="box-title">商品管理</h3>
                     </div>
@@ -52,7 +51,7 @@
                                         <button type="button" class="btn btn-default" title="提交审核" ng-click="updateStatus('4')"><i class="fa fa-check"></i> 提交审核</button>
                                         <button type="button" class="btn btn-default" ng-click="updateMarketable('1')" title="上架" ><i class="fa fa-check"></i> 上架</button>
                                         <button type="button" class="btn btn-default" ng-click="updateMarketable('0')" title="下架" ><i class="fa fa-check"></i> 下架</button>
-                                        <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽</button>
+                                        <button type="button" class="btn btn-default" title="关闭" ng-click="updateStatus('3')"><i class="fa fa-ban"></i> 关闭</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -107,7 +106,7 @@
 		                                  </td>	                                  
 		                                  <td class="text-center">                                          
 		                                 	  
-		                                 	  <a href="goods_edit.html#?id={{entity.id}}"  class="btn bg-olive btn-xs">修改</a>                  
+		                                 	  <a href="goods_edit.html#?id={{entity.id}}"  class="btn bg-olive btn-xs">{{(entity.auditStatus != 1&&entity.auditStatus != 4)?'修改':'查看'}}</a>                  
 		                                  </td>
 			                          </tr>
 			                      </tbody>

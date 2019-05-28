@@ -152,4 +152,6 @@ public class SellerController {
 		return sellerService.findPage(seller, page, rows);		
 	}
 	
+	
+	
 }

@@ -12,6 +12,7 @@ app.controller('baseController',function($scope){
 	
 	//Ë¢ÐÂÁÐ±í
 	$scope.reloadList = function(){
+		$scope.selectIds=[];
 		$scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
 	}
 	
